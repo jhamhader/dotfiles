@@ -136,7 +136,7 @@ colorscheme monokai
 "LastCursorPosition:
 augroup vimrcEx
 au!
-autocmd FileType text setlocal textwidth=78	" For all text files set 'textwidth' to 78 characters.
+"autocmd FileType text setlocal textwidth=78	" For all text files set 'textwidth' to 78 characters.
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
@@ -157,13 +157,6 @@ function! HasPaste()
     en
     return ''
 endfunction
-
-function! Browser ()
-   let line = getline (".")
-   let line = matchstr (line, "http[^   ]*")
-   exec "!firefox ".line
-endfunction
-
 
 
 "File config:
