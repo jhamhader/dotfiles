@@ -21,6 +21,7 @@ let g:netrw_dirhistmax = 0
 if v:progname =~? "evim"
   finish
 endif
+set t_ut=	" crucial for proper vim inside a tmux session
 
 
 "Keys:
@@ -122,7 +123,7 @@ set laststatus=2
 syntax enable
 set cursorline
 "let g:Powerline_symbols = 'fancy'
-set background=dark
+"set background=dark
 if has("gui_running")
 	set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
 else
