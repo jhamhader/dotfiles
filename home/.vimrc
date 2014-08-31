@@ -104,6 +104,10 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn|cmadmin|lost+found)$',
   \ 'file': '\v\.(exe|so|dll|gif|jpg|jpeg|png|lnk|zip|rar|gz|tar|db)$',
   \ }
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:ycm_collect_identifiers_from_tags_files = 1
 
 
 "Tabs:
