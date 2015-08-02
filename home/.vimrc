@@ -10,6 +10,8 @@ set nobackup		" don't save ~ backup files
 set nowritebackup
 set noswapfile
 set autoread		" auto read file when changed from outside
+set wrap
+set showbreak=↪
 filetype plugin indent on	" Enable file type detection.
 set noerrorbells
 set novisualbell
@@ -21,7 +23,7 @@ if v:progname =~? "evim"
   finish
 endif
 set encoding=utf-8
-
+set t_ut=	" crucial for proper vim inside a tmux session
 
 " Keys
 set backspace=indent,eol,start
@@ -44,6 +46,7 @@ set wildignore=*.o,*~,*.pyc,*.a,*.so,*.zip,*.rar,*.swp,*/tmp/*,*/vendor/*,*.exe,
 nnoremap <F10> :set invpaste paste?<CR>
 set pastetoggle=<F10>
 set showmode
+set clipboard^=unnamedplus
 
 
 " Move Windows
@@ -63,6 +66,7 @@ nnoremap <space> za
 nnoremap zO zR
 "	close all folds
 nnoremap zC zM
+set diffopt+=context:99999	" no folds in diffs
 
 
 " Search
@@ -99,6 +103,7 @@ Plug 'lsdr/monokai'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'nanotech/jellybeans.vim'
+Plug 'moll/vim-node'
 call plug#end()
 
 
@@ -123,6 +128,10 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn|cmadmin|lost+found)$',
   \ 'file': '\v\.(exe|so|dll|gif|jpg|jpeg|png|lnk|zip|rar|gz|tar|db)$',
   \ }
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:ycm_collect_identifiers_from_tags_files = 1
 
 
 " Tabs
@@ -130,7 +139,6 @@ noremap <C-Right> :tabnext<CR>
 noremap <C-Left> :tabprevious<CR>
 noremap <C-Up> :tabnew<CR>
 nnoremap <Tab> <C-W>w
-"map <C-Down> :tabclose<CR>
 noremap <up> <nop>
 noremap <down> <nop>
 noremap <left> <nop>
@@ -151,6 +159,19 @@ nnoremap <leader>ev :tabe $MYVIMRC<CR>
 nnoremap <leader>es :tabe $HOME/.bashrc<CR>
 nnoremap <leader>et :tabe $HOME/.tmux.conf<CR>
 nnoremap <leader>rv :source $MYVIMRC<CR>
+nnoremap <leader>rp :CtrlPClearCache<CR>
+nnoremap <leader>ru :PlugUpdate<CR>
+nnoremap <leader>dd :call DiffToggle()<CR>
+
+" Diff
+function! DiffToggle()
+	if &diff 
+		windo diffoff
+	else
+		windo diffthis
+	endif
+endfunction
+		
 
 
 " View
@@ -162,7 +183,7 @@ set laststatus=2	" always a status line
 syntax enable
 set cursorline		" highlight current line
 "let g:Powerline_symbols = 'fancy'
-set background=dark
+"set background=dark
 if has("gui_running")
 	set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
 else
@@ -176,7 +197,7 @@ colorscheme monokai
 " LastCursorPosition
 augroup vimrcEx
 au!
-autocmd FileType text setlocal textwidth=78	" For all text files set 'textwidth' to 78 characters.
+"autocmd FileType text setlocal textwidth=78	" For all text files set 'textwidth' to 78 characters.
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
@@ -202,13 +223,6 @@ function! HasPaste()
     en
     return ''
 endfunction
-
-function! Browser ()
-   let line = getline (".")
-   let line = matchstr (line, "http[^   ]*")
-   exec "!firefox ".line
-endfunction
-
 
 
 "File config:
