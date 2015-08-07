@@ -150,6 +150,8 @@ nnoremap <leader>rv :source $MYVIMRC<CR>
 nnoremap <leader>rp :CtrlPClearCache<CR>
 nnoremap <leader>ru :PlugUpdate<CR>
 nnoremap <leader>dd :call DiffToggle()<CR>
+nnoremap <leader>tL :tabmove +1<CR>
+nnoremap <leader>tH :tabmove -1<CR>
 
 
 " View
