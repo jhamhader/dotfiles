@@ -84,6 +84,7 @@ nnoremap <leader>eb :tabe $HOME/.bashrc<CR>
 nnoremap <leader>rv :source $HOME/.vimrc<CR>
 nnoremap <leader>vr :registers<CR>
 nnoremap <leader>vb :buffers<CR>
+nnoremap <leader>vm :marks<CR>
 nnoremap <leader><leader> :pc<CR>
 nnoremap <leader>/ :nohl<CR>
 nnoremap <leader>rp :CtrlPClearCache<CR>
@@ -125,7 +126,7 @@ let g:ctrlp_buftag_ctags_bin = 'ctags'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['module.conf']
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn|cmadmin|lost+found)|(CMpub|linux50)))$',
+  \ 'dir':  '\v[\/](\.(git|hg|svn|cmadmin|lost+found)|(CMpub|linux50))$',
   \ 'file': '\v\.(exe|so|dll|gif|jpg|jpeg|png|lnk|zip|rar|gz|tar|db)$',
   \ }
 
