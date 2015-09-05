@@ -102,13 +102,16 @@ if g:plugin_manager == 'plugged'
 	Plug 'majutsushi/tagbar'
 	Plug 'kien/ctrlp.vim'
 	Plug 'bling/vim-airline'
-	Plug 'bling/vim-airline'
 	Plug 'scrooloose/nerdtree'
-	Plug 'lsdr/monokai'
+	Plug 'jhamhader/vim-monokai'
 	Plug 'tpope/vim-fugitive'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'nanotech/jellybeans.vim'
-	Plug 'moll/vim-node'
+	Plug 'pangloss/vim-javascript'
+	Plug 'jelera/vim-javascript-syntax'
+	Plug 'morhetz/gruvbox'
+	Plug 'sjl/badwolf'
+	Plug 'scrooloose/syntastic'
 	call plug#end()
 endif
 
@@ -147,6 +150,14 @@ if has("cscope")
 		cs add cscope.out
 	endif
 endif
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"let g:syntastic_javascript_checkers = ['eslint']
 
 " Tabs and Windows
 noremap <C-j> <C-W>j
@@ -201,7 +212,11 @@ set novisualbell
 "let g:Powerline_symbols = 'fancy'
 set background=dark
 if has("gui_running")
-	set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
+	if has("gui_gtk2")
+		set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
+	elseif has("gui_win32")
+		set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
+	endif
 else
 	let g:solarized_termcolors=256
 	set t_Co=256
@@ -241,11 +256,18 @@ function! HasPaste()
 endfunction
 
 function! DiffToggle()
-	if &diff 
+	if &diff
 		windo diffoff
 	else
 		windo diffthis
 	endif
+endfunction
+
+function! JsTabStop()
+	setlocal tabstop=2
+	setlocal softtabstop=2
+	setlocal shiftwidth=2
+	setlocal expandtab
 endfunction
 
 set secure
