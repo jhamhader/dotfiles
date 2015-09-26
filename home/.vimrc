@@ -20,7 +20,7 @@ set nomousehide
 set mousemodel=popup
 set encoding=utf-8
 if v:progname =~? "evim"
-  finish
+	finish
 endif
 
 if !empty($TMUX)
@@ -35,6 +35,7 @@ set backspace=indent,eol,start
 map Q gq
 set whichwrap=<,>,h,l
 set nohidden
+set listchars=eol:¶,tab:┃\ ,trail:·
 
 " Commands and Wild Menu
 set history=50		" keep 50 lines of command line history
@@ -75,19 +76,6 @@ set softtabstop=8
 set shiftwidth=8
 set noexpandtab
 
-" Leader
-let mapleader = ","
-nnoremap <leader>ev :tabe $HOME/.vimrc<CR>
-nnoremap <leader>et :tabe $HOME/.tmux.conf<CR>
-nnoremap <leader>ec :tabe $HOME/.cshrc<CR>
-nnoremap <leader>eb :tabe $HOME/.bashrc<CR>
-nnoremap <leader>rv :source $HOME/.vimrc<CR>
-nnoremap <leader>vr :registers<CR>
-nnoremap <leader>vb :buffers<CR>
-nnoremap <leader>vm :marks<CR>
-nnoremap <leader><leader> :pc<CR>
-nnoremap <leader>/ :nohl<CR>
-nnoremap <leader>rp :CtrlPClearCache<CR>
 
 " Extensions
 if g:plugin_manager == 'pathogen'
@@ -112,10 +100,14 @@ if g:plugin_manager == 'plugged'
 	Plug 'morhetz/gruvbox'
 	Plug 'sjl/badwolf'
 	Plug 'scrooloose/syntastic'
+	"Plug 'bbchung/clighter'
+	Plug 'bruno-/vim-man'
 	call plug#end()
 endif
 
 
+let g:NERDTreeWinPos = 'right'
+let g:NERDTreeWinSize = 45
 let g:tagbar_width = 40
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
@@ -129,9 +121,9 @@ let g:ctrlp_buftag_ctags_bin = 'ctags'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['module.conf']
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn|cmadmin|lost+found)|(CMpub|linux50))$',
-  \ 'file': '\v\.(exe|so|dll|gif|jpg|jpeg|png|lnk|zip|rar|gz|tar|db)$',
-  \ }
+	\ 'dir':  '\v[\/](\.(git|hg|svn|cmadmin|lost+found)|(CMpub|linux50))$',
+	\ 'file': '\v\.(exe|so|dll|gif|jpg|jpeg|png|lnk|zip|rar|gz|tar|db)$',
+	\ }
 
 let g:airline_powerline_fonts = 1
 
@@ -153,13 +145,15 @@ endif
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_checkers = ['eslint']
 
 " Tabs and Windows
+set splitright
+set splitbelow
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-l> <C-W>l
@@ -187,14 +181,23 @@ let mapleader=','
 nnoremap <leader>/ :nohlsearch<CR>
 nnoremap <leader>vr :registers<CR>
 nnoremap <leader>vb :buffers<CR>
+nnoremap <leader>vm :marks<CR>
 nnoremap <leader><leader> :pc<CR>
 nnoremap <leader>ev :tabe $MYVIMRC<CR>
-nnoremap <leader>es :tabe $HOME/.bashrc<CR>
+nnoremap <leader>eb :tabe $HOME/.bashrc<CR>
+nnoremap <leader>ec :tabe $HOME/.cshrc<CR>
 nnoremap <leader>et :tabe $HOME/.tmux.conf<CR>
 nnoremap <leader>rv :source $MYVIMRC<CR>
 nnoremap <leader>rp :CtrlPClearCache<CR>
 nnoremap <leader>ru :PlugUpdate<CR>
 nnoremap <leader>dd :call DiffToggle()<CR>
+nnoremap <leader>gs :!git status<CR>
+nnoremap <leader>gd :!git diff %<CR>
+nnoremap <leader>vc :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+nnoremap <leader>vx :echo synIDattr(synID(line("."),col("."),1),"name")<CR>
+nmap <leader>m <Plug>(Vman)
 map <leader>tn :tabnew<CR>
 map <leader>tl :tabnext<CR>
 map <leader>th :tabprevious<CR>
@@ -209,11 +212,12 @@ set scrolloff=10
 syntax enable
 set cursorline
 set novisualbell
+set colorcolumn=80
 "let g:Powerline_symbols = 'fancy'
 set background=dark
 if has("gui_running")
 	if has("gui_gtk2")
-		set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
+		set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 	elseif has("gui_win32")
 		set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
 	endif
@@ -229,15 +233,14 @@ colorscheme monokai
 " LastCursorPosition
 augroup vimrcEx
 au!
-autocmd FileType text setlocal textwidth=78	" For all text files set 'textwidth' to 78 characters.
+autocmd FileType text setlocal textwidth=78
+autocmd FileType c,cpp setlocal cindent cinoptions=g-1
 
 " When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-" happens when dropping a file on gvim).
 autocmd BufReadPost *
-  \ if line("'\"") > 0 && line("'\"") <= line("$") |
-  \   exe "normal g`\"" |
-  \ endif
+	\ if line("'\"") > 0 && line("'\"") <= line("$") |
+	\	exe "normal g`\"" |
+	\ endif
 
 augroup END
 
@@ -249,10 +252,10 @@ augroup END
 " Functions
 
 function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    en
-    return ''
+	if &paste
+		return 'PASTE MODE  '
+	en
+	return ''
 endfunction
 
 function! DiffToggle()
