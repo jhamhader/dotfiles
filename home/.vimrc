@@ -35,7 +35,6 @@ set backspace=indent,eol,start
 map Q gq
 set whichwrap=<,>,h,l
 set nohidden
-set listchars=eol:¶,tab:┃\ ,trail:·
 
 " Commands and Wild Menu
 set history=50		" keep 50 lines of command line history
@@ -97,14 +96,26 @@ if g:plugin_manager == 'plugged'
 	Plug 'nanotech/jellybeans.vim'
 	Plug 'pangloss/vim-javascript'
 	Plug 'jelera/vim-javascript-syntax'
-	Plug 'morhetz/gruvbox'
-	Plug 'sjl/badwolf'
 	Plug 'scrooloose/syntastic'
-	"Plug 'bbchung/clighter'
 	Plug 'bruno-/vim-man'
+	Plug 'klen/python-mode'
 	call plug#end()
 endif
 
+let g:pymode_rope = 0
+let g:pymode_doc = 0
+let g:pymode_doc_key = '<leader>pk'
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
+let g:pymode_lint_write = 1
+let g:pymode_virtualenv = 1
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>pb'
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+let g:pymode_folding = 0
 
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeWinSize = 45
@@ -212,12 +223,13 @@ set scrolloff=10
 syntax enable
 set cursorline
 set novisualbell
+set list lcs=trail:·,tab:»\ 
 set colorcolumn=80
 "let g:Powerline_symbols = 'fancy'
 set background=dark
 if has("gui_running")
 	if has("gui_gtk2")
-		set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+		set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
 	elseif has("gui_win32")
 		set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
 	endif
@@ -234,6 +246,8 @@ colorscheme monokai
 augroup vimrcEx
 au!
 autocmd FileType text setlocal textwidth=78
+autocmd FileType python call PyTabStop()
+autocmd FileType javascript call JsTabStop()
 autocmd FileType c,cpp setlocal cindent cinoptions=g-1
 
 " When editing a file, always jump to the last known cursor position.
@@ -270,6 +284,13 @@ function! JsTabStop()
 	setlocal tabstop=2
 	setlocal softtabstop=2
 	setlocal shiftwidth=2
+	setlocal expandtab
+endfunction
+
+function! PyTabStop()
+	setlocal tabstop=4
+	setlocal softtabstop=4
+	setlocal shiftwidth=4
 	setlocal expandtab
 endfunction
 
