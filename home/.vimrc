@@ -102,6 +102,7 @@ if g:plugin_manager == 'plugged'
 	Plug 'davidhalter/jedi-vim'
 	Plug 'bruno-/vim-man'
 	Plug 'klen/python-mode'
+	Plug 'rking/ag.vim'
 	call plug#end()
 endif
 
@@ -109,7 +110,7 @@ let g:pymode_rope = 0
 let g:pymode_doc = 0
 let g:pymode_doc_key = '<leader>pk'
 let g:pymode_lint = 1
-let g:pymode_lint_checker = "pyflakes,pep8"
+let g:pymode_lint_checkers = ['pyflakes', 'pep8']
 let g:pymode_lint_write = 1
 let g:pymode_virtualenv = 1
 let g:pymode_breakpoint = 1
@@ -120,6 +121,14 @@ let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 
+let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = "<C-\\>"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>c"
+
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeWinSize = 45
 let g:tagbar_width = 40
@@ -129,7 +138,6 @@ let g:tagbar_sort = 0
 let g:ctrlp_extensions = ['tag', 'buffertag']
 nmap <C-O> :CtrlPBufTagAll<CR>
 nmap <C-L> :CtrlPTag<CR>
-nmap <C-\> :cs find s <cword><CR>
 let g:tagbar_ctags_bin = 'ctags'
 let g:ctrlp_buftag_ctags_bin = 'ctags'
 let g:ctrlp_working_path_mode = 'ra'
@@ -173,15 +181,13 @@ noremap <C-k> <C-W>k
 noremap <C-l> <C-W>l
 noremap <C-h> <C-W>h
 
-noremap <C-Right> :tabnext<CR>
-noremap <C-Left> :tabprevious<CR>
-noremap <C-Up> :tabnew<CR>
+noremap <Right> :tabnext<CR>
+noremap <Left> :tabprevious<CR>
+noremap <Up> :tabnew<CR>
+"noremap <Down> <nop>
 nnoremap <Tab> <C-W>w
 
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
+
 inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
@@ -200,6 +206,7 @@ nnoremap <leader><leader> :pc<CR>
 nnoremap <leader>ev :tabe $MYVIMRC<CR>
 nnoremap <leader>eb :tabe $HOME/.bashrc<CR>
 nnoremap <leader>ec :tabe $HOME/.cshrc<CR>
+nnoremap <leader>eg :tabe $HOME/.gitconfig<CR>
 nnoremap <leader>et :tabe $HOME/.tmux.conf<CR>
 nnoremap <leader>rv :source $MYVIMRC<CR>
 nnoremap <leader>rp :CtrlPClearCache<CR>

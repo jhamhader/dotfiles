@@ -16,12 +16,25 @@
 	st = status
 	co = checkout
 	dt = difftool
+	ss = show --stat
+	amend = commit --amend --date="now"
+	diffs = diff --stat
 [merge]
-	tool = vimdiff
+	tool = meld
 	conflictstyle = diff3
 	prompt = false
 [mergetool]
 	keepBackup = false
 [diff]
-	tool = vimdiff
+	tool = meld
 	prompt = false
+[gerrit "default"]
+	host = review.openstack.org
+	port = 29418
+	user = yuvalbr
+[url "ssh://yuvalbr@review.openstack.org:29418/"]
+	insteadOf = os:
+[url "https://github.com/"]
+	insteadOf = gh:
+[pull]
+	rebase = true
