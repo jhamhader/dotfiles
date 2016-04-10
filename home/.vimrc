@@ -258,6 +258,8 @@ au!
 autocmd FileType text setlocal textwidth=78
 autocmd FileType python call PyTabStop()
 autocmd FileType javascript call JsTabStop()
+autocmd FileType yaml call JsTabStop()
+autocmd FileType json call JsTabStop()
 autocmd FileType c,cpp setlocal cindent cinoptions=g-1
 
 " When editing a file, always jump to the last known cursor position.
@@ -290,6 +292,10 @@ function! DiffToggle()
 	endif
 endfunction
 
+function! TabStop(space, expand)
+	execute "setlocal tabstop=".a:space
+	execute "setlocal softtabstop=".a:space
+	execute "setlocal shiftwidth=".a:space
 function! JsTabStop()
 	setlocal tabstop=2
 	setlocal softtabstop=2
@@ -298,10 +304,15 @@ function! JsTabStop()
 endfunction
 
 function! PyTabStop()
-	setlocal tabstop=4
-	setlocal softtabstop=4
-	setlocal shiftwidth=4
-	setlocal expandtab
+	call TabStop(4, 1)
+endfunction
+
+function! JsTabStop()
+	call TabStop(2, 1)
+endfunction
+
+function! TabTabStop()
+	call TabStop(8, 0)
 endfunction
 
 set secure
