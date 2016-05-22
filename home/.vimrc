@@ -296,11 +296,11 @@ function! TabStop(space, expand)
 	execute "setlocal tabstop=".a:space
 	execute "setlocal softtabstop=".a:space
 	execute "setlocal shiftwidth=".a:space
-function! JsTabStop()
-	setlocal tabstop=2
-	setlocal softtabstop=2
-	setlocal shiftwidth=2
-	setlocal expandtab
+	if a:expand == 1
+		setlocal expandtab
+	else
+		setlocal noexpandtab
+	endif
 endfunction
 
 function! PyTabStop()
