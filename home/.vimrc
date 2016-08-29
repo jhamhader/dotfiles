@@ -260,6 +260,7 @@ autocmd FileType python call PyTabStop()
 autocmd FileType javascript call JsTabStop()
 autocmd FileType yaml call JsTabStop()
 autocmd FileType json call JsTabStop()
+autocmd FileType ruby call RubyTabStop()
 autocmd FileType c,cpp setlocal cindent cinoptions=g-1
 
 " When editing a file, always jump to the last known cursor position.
@@ -273,6 +274,11 @@ augroup END
 augroup GitCommitMessage
 au!
 autocmd BufRead,BufNewfile,BufEnter COMMIT_EDITMSG setlocal colorcolumn=50
+augroup END
+
+augroup DetectFileTypes
+au!
+autocmd BufRead,BufNewfile Vagrantfile set filetype=ruby
 augroup END
 
 " Functions
@@ -308,6 +314,10 @@ function! PyTabStop()
 endfunction
 
 function! JsTabStop()
+	call TabStop(2, 1)
+endfunction
+
+function! RubyTabStop()
 	call TabStop(2, 1)
 endfunction
 
