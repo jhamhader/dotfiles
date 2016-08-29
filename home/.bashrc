@@ -15,6 +15,9 @@ PATH="/usr/lib/ccache/bin/:${PATH}"
 alias ls='ls --color=auto'
 alias prettyjson='python -m json.tool'
 alias agp='ag --python'
+alias agj='ag --js'
+alias agc='ag --cpp --cc'
+ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python2
 
 # Prompt
 # PS1='[\u@\h \W]\$ '
@@ -26,5 +29,5 @@ GIT_PS1_SHOWCOLORHINTS=1
 # Misc
 HISTTIMEFORMAT="%d/%m/%y %T "
 EDITOR='vim'
-TERM="screen-256color"
+# TERM="screen-256color"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"

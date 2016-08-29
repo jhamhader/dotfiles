@@ -20,6 +20,7 @@
 	ss = show --stat
 	amend = commit --amend --date="now"
 	diffs = diff --stat
+	addi = add -i
 [merge]
 	tool = meld
 	conflictstyle = diff3
