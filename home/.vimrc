@@ -4,15 +4,14 @@ let g:plugin_manager = "plugged"
 
 " Basics
 set nocompatible
-set nobackup		" don't save ~ backup files
+set nobackup
 set noswapfile
-set autoread		" auto read file when changed from outside
+set autoread
 set wrap
 set showbreak=>
-filetype plugin indent on	" Enable file type detection.
 set noerrorbells
-set novisualbell
 set vb t_vb=
+set novisualbell
 set viminfo^=%
 set mouse=a
 let g:netrw_dirhistmax = 0
@@ -30,15 +29,15 @@ if !empty($TMUX)
 	set t_kl=OD
 endif
 
-"Keys:
+" Keys
 set backspace=indent,eol,start
 map Q gq
 set whichwrap=<,>,h,l
 set nohidden
 
 " Commands and Wild Menu
-set history=50		" keep 50 lines of command line history
-set cmdheight=2		" Command line height in lines
+set history=50
+set cmdheight=2
 set wildmenu
 set wildmode=longest:full,full
 set wildignore=*.o,*~,*.pyc,*.a,*.so,*.zip,*.rar,*.swp,*/tmp/*,*/vendor/*,*.exe,*.dll
@@ -58,17 +57,17 @@ nnoremap zC zM
 set diffopt+=context:99999	" no folds in diffs
 
 " Search
-set incsearch		" do incremental searching
-set hlsearch		" Highlight search matches
-set ignorecase		" Ignore case on searches
+set incsearch
+set hlsearch
+set ignorecase
 set smartcase
-"set magic		" Regex magic mode
-set showmatch		" show matching (brackets)
-set mat=2		" Tenth of a second to blink matching brackets
+set showmatch
+set mat=2
 
 " Indent
 set autoindent
 set smartindent
+filetype plugin indent on
 set smarttab
 set tabstop=8
 set softtabstop=8
@@ -77,11 +76,12 @@ set noexpandtab
 
 
 " Extensions
+"  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 if g:plugin_manager == 'pathogen'
 	execute pathogen#infect()
 	execute pathogen#helptags()
 endif
-"
+
 "vim-plug:
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 if g:plugin_manager == 'plugged'
@@ -100,62 +100,65 @@ if g:plugin_manager == 'plugged'
 	Plug 'jelera/vim-javascript-syntax'
 	Plug 'scrooloose/syntastic'
 	Plug 'davidhalter/jedi-vim'
-	Plug 'bruno-/vim-man'
 	Plug 'klen/python-mode'
 	Plug 'rking/ag.vim'
 	call plug#end()
 endif
 
-let g:pymode_rope = 0
+" python-mode config
+let g:pymode_rope = 0 " use jedi instead of rope
 let g:pymode_doc = 0
 let g:pymode_doc_key = '<leader>pk'
 let g:pymode_lint = 1
 let g:pymode_lint_checkers = ['pyflakes', 'pep8']
 let g:pymode_lint_write = 1
 let g:pymode_virtualenv = 1
-let g:pymode_breakpoint = 1
+let g:pymode_breakpoint = 0
 let g:pymode_breakpoint_bind = '<leader>pb'
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 
-let g:jedi#goto_command = "<leader>d"
-let g:jedi#goto_assignments_command = "<leader>g"
+" jedi-vim config
+let g:jedi#goto_command = "<leader>pd"
+let g:jedi#goto_assignments_command = "<leader>pg"
 let g:jedi#goto_definitions_command = "<C-\\>"
 let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
+let g:jedi#usages_command = "<leader>pn"
 let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>c"
+let g:jedi#rename_command = "<leader>pc"
 
+" nerdtree config
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeWinSize = 45
+nnoremap <F9> :NERDTreeToggle<CR>
+
+" tagbar config
 let g:tagbar_width = 40
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_sort = 0
-let g:ctrlp_extensions = ['tag', 'buffertag']
-nmap <C-O> :CtrlPBufTagAll<CR>
-nmap <C-L> :CtrlPTag<CR>
 let g:tagbar_ctags_bin = 'ctags'
+nmap <F8> :TagbarToggle<CR>
+
+"nmap <C-\> :cs find s <cword><CR>
+
+" ctrlp config
+let g:ctrlp_extensions = ['tag', 'buffertag']
 let g:ctrlp_buftag_ctags_bin = 'ctags'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['module.conf']
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/](\.(git|hg|svn|cmadmin|lost+found)|(CMpub|linux50))$',
 	\ 'file': '\v\.(exe|so|dll|gif|jpg|jpeg|png|lnk|zip|rar|gz|tar|db)$',
 	\ }
-
-let g:airline_powerline_fonts = 1
-
-nmap <F8> :TagbarToggle<CR>
-nnoremap <F9> :NERDTreeToggle<CR>
-
 let g:ctrlp_cache_dir = $HOME.'/.ctrlpcache'
 let g:ctrlp_clear_cache_on_exit = 0
-let g:session_autoload = 'no'
-let g:session_autosave = 'no'
+nmap <C-O> :CtrlPBufTagAll<CR>
+nmap <C-L> :CtrlPTag<CR>
+
+" airline config
+let g:airline_powerline_fonts = 1
+
 if has("cscope")
 	set csprg='cscope'
 	set csto=0
@@ -164,6 +167,8 @@ if has("cscope")
 		cs add cscope.out
 	endif
 endif
+
+" syntastic config
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -180,23 +185,23 @@ noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-l> <C-W>l
 noremap <C-h> <C-W>h
-
-noremap <Right> :tabnext<CR>
-noremap <Left> :tabprevious<CR>
-noremap <Up> :tabnew<CR>
-"noremap <Down> <nop>
 nnoremap <Tab> <C-W>w
 
-
+" arrow keys
+noremap <Right> :tabnext<CR>
+noremap <Left> :tabprevious<CR>
+noremap <Up> <nop>
+noremap <Down> <nop>
 inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
+" j k move through wrap
 nnoremap j gj
 nnoremap k gk
 
-" Leader
+" Leader shortcuts
 let mapleader=','
 nnoremap <leader>/ :nohlsearch<CR>
 nnoremap <leader>vr :registers<CR>
@@ -212,30 +217,23 @@ nnoremap <leader>rv :source $MYVIMRC<CR>
 nnoremap <leader>rp :CtrlPClearCache<CR>
 nnoremap <leader>ru :PlugUpdate<CR>
 nnoremap <leader>dd :call DiffToggle()<CR>
-nnoremap <leader>gs :!git status<CR>
-nnoremap <leader>gd :!git diff %<CR>
-nnoremap <leader>vc :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-nnoremap <leader>vx :echo synIDattr(synID(line("."),col("."),1),"name")<CR>
-nmap <leader>m <Plug>(Vman)
 map <leader>tn :tabnew<CR>
 map <leader>tl :tabnext<CR>
 map <leader>th :tabprevious<CR>
 
 " View
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set number		" Line numbers
+set ruler
+set showcmd
+set number
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 set laststatus=2
 set scrolloff=10
 syntax enable
 set cursorline
-set novisualbell
 set list lcs=trail:·,tab:»\ 
 set colorcolumn=80
-"let g:Powerline_symbols = 'fancy'
+
+" Theme and fonts
 set background=dark
 if has("gui_running")
 	if has("gui_gtk2")
@@ -247,13 +245,24 @@ else
 	let g:solarized_termcolors=256
 	set t_Co=256
 endif
-"let g:solarized_termcolors=256
-"colorscheme solarized
 colorscheme monokai
 
 
-" LastCursorPosition
-augroup vimrcEx
+augroup LastCursorPosition
+au!
+autocmd BufReadPost *
+	\ if line("'\"") > 0 && line("'\"") <= line("$") |
+	\	exe "normal g`\"" |
+	\ endif
+
+augroup END
+
+augroup DetectFileTypes
+au!
+autocmd BufRead,BufNewfile Vagrantfile set filetype=ruby
+augroup END
+
+augroup FileTypeSpecificConfig
 au!
 autocmd FileType text setlocal textwidth=78
 autocmd FileType python call PyTabStop()
@@ -262,23 +271,7 @@ autocmd FileType yaml call JsTabStop()
 autocmd FileType json call JsTabStop()
 autocmd FileType ruby call RubyTabStop()
 autocmd FileType c,cpp setlocal cindent cinoptions=g-1
-
-" When editing a file, always jump to the last known cursor position.
-autocmd BufReadPost *
-	\ if line("'\"") > 0 && line("'\"") <= line("$") |
-	\	exe "normal g`\"" |
-	\ endif
-
-augroup END
-
-augroup GitCommitMessage
-au!
-autocmd BufRead,BufNewfile,BufEnter COMMIT_EDITMSG setlocal colorcolumn=50
-augroup END
-
-augroup DetectFileTypes
-au!
-autocmd BufRead,BufNewfile Vagrantfile set filetype=ruby
+autocmd FileType gitcommit setlocal colorcolumn=50
 augroup END
 
 " Functions
