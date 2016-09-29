@@ -102,6 +102,7 @@ if g:plugin_manager == 'plugged'
 	Plug 'davidhalter/jedi-vim'
 	Plug 'klen/python-mode'
 	Plug 'rking/ag.vim'
+	Plug 'fatih/vim-go'
 	call plug#end()
 endif
 
@@ -270,6 +271,7 @@ autocmd FileType javascript call JsTabStop()
 autocmd FileType yaml call JsTabStop()
 autocmd FileType json call JsTabStop()
 autocmd FileType ruby call RubyTabStop()
+autocmd FileType go call TabTabStop()
 autocmd FileType c,cpp setlocal cindent cinoptions=g-1
 autocmd FileType gitcommit setlocal colorcolumn=50
 augroup END
