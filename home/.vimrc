@@ -266,11 +266,11 @@ augroup END
 augroup FileTypeSpecificConfig
 au!
 autocmd FileType text setlocal textwidth=78
-autocmd FileType python call PyTabStop()
-autocmd FileType javascript call JsTabStop()
-autocmd FileType yaml call JsTabStop()
-autocmd FileType json call JsTabStop()
-autocmd FileType ruby call RubyTabStop()
+autocmd FileType python call FourSpacesTabStop()
+autocmd FileType javascript call TwoSpacesTabStop()
+autocmd FileType yaml call TwoSpacesTabStop()
+autocmd FileType json call TwoSpacesTabStop()
+autocmd FileType ruby call TwoSpacesTabStop()
 autocmd FileType go call TabTabStop()
 autocmd FileType c,cpp setlocal cindent cinoptions=g-1
 autocmd FileType gitcommit setlocal colorcolumn=50
@@ -304,15 +304,11 @@ function! TabStop(space, expand)
 	endif
 endfunction
 
-function! PyTabStop()
+function! FourSpacesTabStop()
 	call TabStop(4, 1)
 endfunction
 
-function! JsTabStop()
-	call TabStop(2, 1)
-endfunction
-
-function! RubyTabStop()
+function! TwoSpacesTabStop()
 	call TabStop(2, 1)
 endfunction
 
