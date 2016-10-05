@@ -272,6 +272,7 @@ autocmd FileType yaml call TwoSpacesTabStop()
 autocmd FileType json call TwoSpacesTabStop()
 autocmd FileType ruby call TwoSpacesTabStop()
 autocmd FileType go call TabTabStop()
+autocmd FileType dockerfile call FourSpacesTabStop()
 autocmd FileType c,cpp setlocal cindent cinoptions=g-1
 autocmd FileType gitcommit setlocal colorcolumn=50
 augroup END
