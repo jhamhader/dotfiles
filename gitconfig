@@ -20,6 +20,7 @@
 	ss = show --stat
 	amend = commit --amend --date="now"
 	diffs = diff --stat
+	rpush = review -R -r origin master
 	addi = add -i
 [merge]
 	tool = meld
@@ -38,5 +39,10 @@
 	insteadOf = os:
 [url "https://github.com/"]
 	insteadOf = gh:
+[url "git@github.com:"]
+    pushInsteadOf = git://github.com/
+    pushInsteadOf = https://github.com/
 [pull]
 	rebase = true
+[credential]
+	helper = cache
