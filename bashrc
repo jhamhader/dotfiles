@@ -9,7 +9,7 @@
 if which ruby >/dev/null && which gem >/dev/null; then
     PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
-PATH="/usr/lib/ccache/bin/:${PATH}"
+export PATH="/usr/lib/ccache/bin/:${PATH}"
 
 # Aliases
 alias ls='ls --color=auto'
@@ -17,17 +17,21 @@ alias prettyjson='python -m json.tool'
 alias agp='ag --python'
 alias agj='ag --js'
 alias agc='ag --cpp --cc'
-ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python2
+alias git-daemon='git daemon --reuseaddr --base-path=${HOME}/src'
+alias tmux='tmux -2'
+export PYTHONDONTWRITEBYTECODE=1
+export ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python2
+export VAGRANT_DEFAULT_PROVIDER=libvirt
 
 # Prompt
 # PS1='[\u@\h \W]\$ '
 source /usr/share/git/completion/git-prompt.sh
-PROMPT_COMMAND='__git_ps1 "[\u@\h \w ]" " \\\\$ "'
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWCOLORHINTS=1
+export PROMPT_COMMAND='__git_ps1 "[\u@\h \w ]" " \\\\$ "'
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWCOLORHINTS=1
 
 # Misc
-HISTTIMEFORMAT="%d/%m/%y %T "
-EDITOR='vim'
+export HISTTIMEFORMAT="%d/%m/%y %T "
+export EDITOR='vim'
 # TERM="screen-256color"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
