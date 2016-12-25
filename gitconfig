@@ -20,7 +20,7 @@
 	ss = show --stat
 	amend = commit --amend --date="now"
 	diffs = diff --stat
-	rpush = review -R -r origin master
+	rpush = review -R
 	addi = add -i
 [merge]
 	tool = meld
