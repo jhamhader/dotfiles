@@ -22,6 +22,7 @@
 	diffs = diff --stat
 	rpush = review -R
 	addi = add -i
+	untracked = ls-files --others --exclude-standard
 [merge]
 	tool = meld
 	conflictstyle = diff3
@@ -42,6 +43,11 @@
 [url "git@github.com:"]
     pushInsteadOf = git://github.com/
     pushInsteadOf = https://github.com/
+[url "git@gitlab.com:"]
+	insteadOf = gl:
+[url "git@gitlab.com:"]
+    insteadOf = git://gitlab.com/
+    insteadOf = https://gitlab.com/
 [pull]
 	rebase = true
 [credential]
