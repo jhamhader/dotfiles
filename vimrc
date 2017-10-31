@@ -129,6 +129,9 @@ let g:jedi#usages_command = "<leader>pn"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>pc"
 
+" vim-go
+let g:go_template_autocreate = 0
+
 " nerdtree config
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeWinSize = 45
@@ -273,6 +276,8 @@ autocmd FileType json call TwoSpacesTabStop()
 autocmd FileType ruby call TwoSpacesTabStop()
 autocmd FileType go call TabTabStop()
 autocmd FileType dockerfile call FourSpacesTabStop()
+autocmd FileType rst call FourSpacesTabStop()
+autocmd FileType markdown call FourSpacesTabStop()
 autocmd FileType c,cpp setlocal cindent cinoptions=g-1
 autocmd FileType gitcommit setlocal colorcolumn=50
 augroup END
